@@ -1,0 +1,15 @@
+import React from 'react';
+
+class CFooter extends React.Component {
+  render() {
+    return (
+      <footer className="footer py-3">
+        <div className="container">
+          <span className="text-muted">{ this.props.children }</span>
+        </div>
+      </footer>
+    );
+	}
+}
+
+export default CFooter;

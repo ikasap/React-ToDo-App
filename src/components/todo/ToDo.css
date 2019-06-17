@@ -1,0 +1,25 @@
+.todoDone {
+  transition: all .3s;
+  cursor: pointer; 
+  background: #20c997;
+  width: 30px;
+  color: white;
+}
+
+.todoDone:hover { 
+  background: #0b9d2e;
+}
+
+.todoDelete {
+  transition: all .3s;
+  cursor: pointer;
+  background: red;
+  width: 30px;
+  color: white;
+}
+
+.todoDelete:hover{
+  transition: all .3s;
+  cursor: pointer;
+  background: #cb2525;
+}
