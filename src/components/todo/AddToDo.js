@@ -2,21 +2,19 @@ import React from 'react';
 
 class CAddToDo extends React.Component {
   state = {
-    text: ''
+    title: ''
   }
   fOnChange = (e) => {
     this.setState({
-      text: e.target.value,
-      isDeleted: 0,
-      isDone: 0
+      title: e.target.value
     });
   }
   fOnSubmit = (e) => {
     e.preventDefault();
-    if (this.state.text.length > 0) {
+    if (this.state.title.length > 0) {
       this.props.pAddTodo(this.state);
       this.setState({ 
-        text: '' 
+        title: ''
       });
     }
   }
@@ -27,7 +25,7 @@ class CAddToDo extends React.Component {
           <div className="col-sm-6 offset-sm-3 text-center">
             <form onSubmit={ this.fOnSubmit } className="justify-content-center">
               <div className="form-group">
-                  <input type="text" className="form-control" onChange={ this.fOnChange } value={ this.state.text } />
+                  <input type="title" className="form-control" onChange={ this.fOnChange } value={ this.state.title } />
               </div>
             </form>
           </div>

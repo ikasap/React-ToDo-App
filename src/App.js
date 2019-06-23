@@ -3,7 +3,7 @@ import CHeader from './components/Header';
 import CMain from './components/Main';
 import CTodo from './components/todo/ToDo';
 import CFooter from './components/Footer';
-import './App.css';
+import './App.scss';
 
 class App extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class App extends React.Component {
       <div className="d-flex flex-column h-100">
         <CHeader pTitle="React.ToDo.App" />
         <CMain>
-          <CTodo pTitle="Market" />
+          <CTodo pTitle="ToDo Title" />
         </CMain>
         <CFooter>React.ToDo.App Footer</CFooter>
       </div>

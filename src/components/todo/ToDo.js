@@ -1,37 +1,26 @@
 import React from 'react';
 import CAddToDo from './AddToDo';
 import CToDoList from './ToDoList';
-import './ToDo.css';
+import './ToDo.scss';
+import { connect } from 'react-redux';
+import { getAllToDoItems, addNewToDoItem, removeToDoItem, completeToDoItem, toDoShowHide } from '../../redux/actions';
+
 
 class ToDo extends React.Component {
-  state = {
-    todos: [],
-    show: false
+  componentDidMount() {
+    this.props.onGetAllToDoItems();
   }
   fAddToDoItem = (item) => {
-    item.id = Math.random();
-    let todos = [...this.state.todos, item];
-    this.setState({
-      todos
-    });
+    this.props.onAddNewToDoItem(item.title, false);
   }
   fDoneToDo = (itemId) => {
-    let todos = this.state.todos;
-    todos.find(f=> f.id === itemId).isDone = 1;
-    this.setState({
-      todos
-    });
+    this.props.onCompleteToDoItem(itemId);
   }
   fDeleteToDo = (itemId) => {
-    let todos = this.state.todos.filter(f=> f.id !== itemId);
-    this.setState({
-      todos
-    });
+    this.props.onRemoveTodoItem(itemId);
   }
   fShowHide = () => {
-    this.setState({
-      show: !(this.state.show === true)
-    });
+    this.props.onToDoShowHide(!this.props.showHide);
   }
   render() {
     let title = this.props.pTitle != null ? <div className="text-center"><h3>{this.props.pTitle}</h3></div> : null;
@@ -39,10 +28,27 @@ class ToDo extends React.Component {
       <div className="pt-5">
           { title }
           <CAddToDo pAddTodo={ this.fAddToDoItem } />
-          <CToDoList pToDoItems={ this.state.todos } pDoneToDo={ this.fDoneToDo } pDeleteToDo={ this.fDeleteToDo } pShowHide={ this.fShowHide } pShowHideValue={ this.state.show} />
+          <CToDoList pToDoItems={ this.props.items } pDoneToDo={ this.fDoneToDo } pDeleteToDo={ this.fDeleteToDo } pShowHide={ this.fShowHide } pShowHideValue={ this.props.showHide } pChangeId={ this.props.changeId } />
       </div>
     );
   }
 }
+
+function mapStateToProps(state) {
+  return {
+    items: state.items,
+    showHide: state.showHide,
+    changeId: state.changeId
+  }
+}
+function mapDispatchToProps(dispatch) {
+  return {
+    onGetAllToDoItems: () => dispatch(getAllToDoItems()),
+    onAddNewToDoItem: (title, completed) => dispatch(addNewToDoItem(title, completed)),
+    onRemoveTodoItem: (id) => dispatch(removeToDoItem(id)),
+    onCompleteToDoItem: (id) => dispatch(completeToDoItem(id)),
+    onToDoShowHide: (showHide) => dispatch(toDoShowHide(showHide))
+  }
+}
   
-export default ToDo;
+export default connect(mapStateToProps, mapDispatchToProps)(ToDo);

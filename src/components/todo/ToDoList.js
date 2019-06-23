@@ -12,16 +12,16 @@ class CToDoList extends React.Component {
   }
   render() {
     let toDoItems = this.props.pToDoItems;
-    let renderItem = toDoItems.map(tItem => {
+    let renderItem = toDoItems ? toDoItems.map(tItem => {
 
-      if(tItem.isDone === 0 || this.props.pShowHideValue === true) {
-        let cclass = (tItem.isDone === 1 ? "list-group-item-success" : "");
+      if(tItem.completed === false || this.props.pShowHideValue === true) {
+        let cclass = (tItem.completed === true ? "list-group-item-success" : "");
         cclass = cclass + " list-group-item d-flex justify-content-between align-items-center my-2 p-0";
 
         return (
           <li key={tItem.id} className={cclass}>
             <span className="border-right p-2 todoDone" onClick={ () => { this.pDone(tItem.id) } }><i className="fa fa-check" aria-hidden="true"></i></span> 
-            <span className="flex-grow-1 ml-2 text-truncate">{ tItem.text }</span>    
+            <span className="flex-grow-1 ml-2 text-truncate">{ tItem.title }</span>    
             <span className="border-left p-2 todoDelete" onClick={ () => { this.pDelete(tItem.id) } }><i className="fa fa-trash" aria-hidden="true"></i></span>
           </li>
         )
@@ -31,10 +31,10 @@ class CToDoList extends React.Component {
         return "";
       }
 
-    });
+    }) : null;
 
-    let totalCount = toDoItems.length;
-    let doneCount =  toDoItems.filter(f => f.isDone === 1).length;
+    let totalCount = toDoItems ? toDoItems.length : 0;
+    let doneCount =  toDoItems ? toDoItems.filter(f => f.completed === true).length : 0;
     let waitingCount = (totalCount - doneCount);
 
     return ( 
