@@ -3,7 +3,7 @@ import { GET_ALL_TODOS, ADD_NEW_TODO, REMOVE_TODO, COMPLETE_TODO, TODO_SHOW_HIDE
 const ToDoItem = (action) => {
   let{id, title, completed} = action;
   return { 
-    id: (id + Math.random()), 
+    id: (id + new Date().getTime()), 
     title, 
     completed 
   };

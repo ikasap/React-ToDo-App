@@ -12,6 +12,8 @@ class CToDoList extends React.Component {
   }
   render() {
     let toDoItems = this.props.pToDoItems;
+    toDoItems.sort((a,b) => a.id > b.id ? 1 : -1).reverse();
+
     let renderItem = toDoItems ? toDoItems.map(tItem => {
 
       if(tItem.completed === false || this.props.pShowHideValue === true) {
